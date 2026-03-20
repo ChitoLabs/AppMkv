@@ -6,7 +6,7 @@
  / ___ |/ / / / / /  __/ /_/ /_   /   |  
 /_/  |_/_/ /_/ /_/\___/\__/\__/  /_/|_|  
                                           
-  Blu-ray Compatibility Converter for MKV Anime Files
+  Convertidor de compatibilidad Blu-ray para archivos MKV de anime
   </pre>
 </p>
 
@@ -20,253 +20,253 @@
 
 ---
 
-## About
+## Acerca de
 
-**AppMkv** is a command-line tool that converts MKV anime files for full compatibility with Blu-ray players. It analyzes each file, detects which streams need conversion (video and audio), and produces a clean `_Final.mkv` output — preserving subtitles, chapters, fonts, and metadata.
+**AppMkv** es una herramienta de línea de comandos que convierte archivos MKV de anime para lograr compatibilidad total con reproductores Blu-ray. Analiza cada archivo, detecta qué flujos necesitan conversión (video y audio) y genera un archivo de salida `_Final.mkv` limpio — conservando subtítulos, capítulos, fuentes y metadatos.
 
-Built for anime collectors who want their files to "just work" on any Blu-ray player without manual FFmpeg commands.
-
----
-
-## Features
-
-- 🎬 **Smart Video Conversion** — H.264 High Profile Level 4.1 (Blu-ray spec)
-- 🔊 **Audio Normalization** — Converts non-compatible audio to AAC 192kbps / 48kHz
-- ⚡ **GPU Acceleration** — Auto-detects NVIDIA NVENC for fast encoding; falls back to CPU (libx264)
-- 📝 **Preserves All Subtitles** — Every subtitle track (ASS, SRT, PGS, etc.) is carried over
-- 🔖 **Keeps Chapters** — Chapter markers remain intact
-- 🎨 **Retains Fonts & Attachments** — Custom fonts for styled subs are preserved
-- 🔍 **Dry-Run Mode** — Preview what would be converted without touching any files
-- 📊 **Batch Processing** — Recursively scans folders and processes all MKV files
-- 🧠 **Smart Analysis** — Skips files that are already Blu-ray compatible
+Diseñada para coleccionistas de anime que quieren que sus archivos "simplemente funcionen" en cualquier reproductor Blu-ray sin necesidad de comandos FFmpeg manuales.
 
 ---
 
-## Installation
+## Características
 
-### Prerequisites
+- 🎬 **Conversión de video inteligente** — H.264 High Profile Level 4.1 (especificación Blu-ray)
+- 🔊 **Normalización de audio** — Convierte audio no compatible a AAC 192 kbps / 48 kHz
+- ⚡ **Aceleración por GPU** — Detecta automáticamente NVIDIA NVENC para codificación rápida; usa CPU como respaldo (libx264)
+- 📝 **Conserva todos los subtítulos** — Se mantienen todas las pistas de subtítulos (ASS, SRT, PGS, etc.)
+- 🔖 **Mantiene los capítulos** — Los marcadores de capítulos permanecen intactos
+- 🎨 **Conserva fuentes y archivos adjuntos** — Las fuentes personalizadas para subtítulos con estilos se preservan
+- 🔍 **Modo de prueba (dry-run)** — Previsualiza qué se convertiría sin modificar ningún archivo
+- 📊 **Procesamiento por lotes** — Escanea carpetas recursivamente y procesa todos los archivos MKV
+- 🧠 **Análisis inteligente** — Omite archivos que ya son compatibles con Blu-ray
 
-| Requirement | Details |
-|-------------|---------|
-| **OS** | Windows 10 / 11 |
-| **FFmpeg** | [Download from gyan.dev](https://www.gyan.dev/ffmpeg/builds/) (static build recommended) |
-| **Python** | 3.8+ (only if running from source) |
+---
 
-### Option A: Standalone Executable
+## Instalación
 
-1. Download the latest release from [Releases](https://github.com/ChitoLabs/AppMkv/releases)
-2. Place all files in the same folder:
+### Requisitos previos
+
+| Requisito | Detalles |
+|-----------|----------|
+| **SO** | Windows 10 / 11 |
+| **FFmpeg** | [Descargar desde gyan.dev](https://www.gyan.dev/ffmpeg/builds/) (se recomienda la versión estática) |
+| **Python** | 3.8+ (solo si se ejecuta desde el código fuente) |
+
+### Opción A: Ejecutable independiente
+
+1. Descarga la última versión desde [Releases](https://github.com/ChitoLabs/AppMkv/releases)
+2. Coloca todos los archivos en la misma carpeta:
 
 ```
 AppMkv/
-├── app_mkv.exe          # Main executable
-├── ffmpeg.exe           # FFmpeg binary
-└── ffprobe.exe          # FFprobe binary (included with FFmpeg)
+├── app_mkv.exe          # Ejecutable principal
+├── ffmpeg.exe           # Binario de FFmpeg
+└── ffprobe.exe          # Binario de FFprobe (incluido con FFmpeg)
 ```
 
-3. Run from terminal — done.
+3. Ejecuta desde la terminal — listo.
 
-### Option B: Run from Source
+### Opción B: Ejecutar desde el código fuente
 
 ```bash
-# Clone the repository
+# Clonar el repositorio
 git clone https://github.com/ChitoLabs/AppMkv.git
 cd AppMkv
 
-# No external Python dependencies required (stdlib only)
-# Just make sure FFmpeg is installed and in PATH
+# No se requieren dependencias externas de Python (solo stdlib)
+# Solo asegúrate de tener FFmpeg instalado y en el PATH
 
-python app_mkv.py "C:\path\to\anime"
+python app_mkv.py "C:\ruta\al\anime"
 ```
 
-> **Tip:** If `ffmpeg.exe` and `ffprobe.exe` are in your system PATH, they don't need to be in the same folder.
+> **Consejo:** Si `ffmpeg.exe` y `ffprobe.exe` están en el PATH del sistema, no necesitan estar en la misma carpeta.
 
 ---
 
-## Usage
+## Uso
 
-### Basic — Convert a Folder
+### Básico — Convertir una carpeta
 
 ```bash
 app_mkv.exe "D:\Anime\Attack on Titan"
 ```
 
-Recursively scans all MKV files, analyzes each one, and converts only what needs conversion. Output files are created alongside the originals with a `_Final.mkv` suffix.
+Escanea recursivamente todos los archivos MKV, analiza cada uno y convierte solo lo necesario. Los archivos de salida se crean junto a los originales con el sufijo `_Final.mkv`.
 
-### Preview Mode (Dry Run)
+### Modo de previsualización (dry-run)
 
 ```bash
 app_mkv.exe "D:\Anime\Attack on Titan" --dry-run
 ```
 
-Shows what **would** be converted without actually writing any files. Use this to plan before committing to a batch conversion.
+Muestra qué **se convertiría** sin escribir ningún archivo realmente. Úsalo para planificar antes de comprometerte con una conversión por lotes.
 
-### Force GPU Encoding
-
-```bash
-app_mkv.exe "D:\Anime\Attack on Titan" --gpu=on
-```
-
-Forces NVIDIA NVENC hardware encoding. Faster, but requires a compatible NVIDIA GPU.
-
-### Force CPU Encoding
+### Forzar codificación por GPU
 
 ```bash
-app_mkv.exe "D:\Anime\Attack on Titan" --gpu=off
+app_mkv.exe "D:\Anime\Attack on Titan" --gpu=on"
 ```
 
-Forces libx264 software encoding. Slower but works on any machine and produces slightly better quality per bitrate.
+Fuerza la codificación por hardware NVIDIA NVENC. Más rápido, pero requiere una GPU NVIDIA compatible.
 
-### Custom FFmpeg Path
+### Forzar codificación por CPU
+
+```bash
+app_mkv.exe "D:\Anime\Attack on Titan" --gpu=off"
+```
+
+Fuerza la codificación por software libx264. Más lento, pero funciona en cualquier equipo y produce una calidad ligeramente superior por bitrate.
+
+### Ruta personalizada de FFmpeg
 
 ```bash
 app_mkv.exe "D:\Anime\Attack on Titan" --ffmpeg-path "C:\Tools\ffmpeg\bin\ffmpeg.exe"
 ```
 
-### Verbose Logging
+### Registro detallado
 
 ```bash
-app_mkv.exe "D:\Anime\Attack on Titan" --verbose
+app_mkv.exe "D:\Anime\Attack on Titan" --verbose"
 ```
 
-Enables detailed output for debugging. Logs are also saved to the `logs/` folder.
+Activa la salida detallada para depuración. Los registros también se guardan en la carpeta `logs/`.
 
 ---
 
-## Command Reference
+## Referencia de comandos
 
-| Argument | Type | Default | Description |
-|----------|------|---------|-------------|
-| `folder` | positional | — | Root folder containing MKV files (scanned recursively) |
-| `--gpu` | choice | `auto` | GPU encoding mode: `auto` (detect), `on` (force NVENC), `off` (CPU only) |
-| `--dry-run` | flag | off | Analyze files but do not convert |
-| `--verbose` | flag | off | Enable detailed logging output |
-| `--ffmpeg-path` | string | auto | Custom path to the FFmpeg binary |
+| Argumento | Tipo | Valor predeterminado | Descripción |
+|-----------|------|----------------------|-------------|
+| `folder` | posicional | — | Carpeta raíz que contiene archivos MKV (escaneada recursivamente) |
+| `--gpu` | opción | `auto` | Modo de codificación por GPU: `auto` (detectar), `on` (forzar NVENC), `off` (solo CPU) |
+| `--dry-run` | bandera | off | Analizar archivos sin convertirlos |
+| `--verbose` | bandera | off | Habilitar salida detallada de registros |
+| `--ffmpeg-path` | cadena | auto | Ruta personalizada al binario de FFmpeg |
 
 ---
 
-## Output Structure
+## Estructura de salida
 
-Converted files are placed next to the originals with a `_Final` suffix:
+Los archivos convertidos se colocan junto a los originales con el sufijo `_Final`:
 
 ```
-Anime Folder/
+Carpeta de Anime/
 ├── Episode01.mkv                 ← Original
-├── Episode01_Final.mkv           ← Converted (Blu-ray compatible)
+├── Episode01_Final.mkv           ← Convertido (compatible con Blu-ray)
 ├── Episode02.mkv                 ← Original
-├── Episode02_Final.mkv           ← Converted (Blu-ray compatible)
+├── Episode02_Final.mkv           ← Convertido (compatible con Blu-ray)
 └── logs/
-    └── app_mkv_20260320.log      ← Conversion log
+    └── app_mkv_20260320.log      ← Registro de conversión
 ```
 
-> Files that are already Blu-ray compatible are **skipped** — no `_Final` copy is created.
+> Los archivos que ya son compatibles con Blu-ray se **omiten** — no se crea una copia `_Final`.
 
 ---
 
-## Technical Specifications
+## Especificaciones técnicas
 
 ### Video
 
-| Property | Value |
-|----------|-------|
-| Codec | H.264 (libx264 for CPU, h264_nvenc for GPU) |
-| Profile | High @ Level 4.1 |
-| Bit Depth | 8-bit |
-| Resolution | Original (if ≤1920×1080) or downscaled to 1080p |
-| Quality (CPU) | CRF 20 |
-| Quality (GPU) | CQ 18 |
+| Propiedad | Valor |
+|-----------|-------|
+| Códec | H.264 (libx264 para CPU, h264_nvenc para GPU) |
+| Perfil | High @ Level 4.1 |
+| Profundidad de color | 8 bits |
+| Resolución | Original (si ≤1920×1080) o reducida a 1080p |
+| Calidad (CPU) | CRF 20 |
+| Calidad (GPU) | CQ 18 |
 
 ### Audio
 
-| Property | Value |
-|----------|-------|
-| Codec | AAC (converted only if original is not AAC / AC3 / DTS) |
+| Propiedad | Valor |
+|-----------|-------|
+| Códec | AAC (se convierte solo si el original no es AAC / AC3 / DTS) |
 | Bitrate | 192 kbps |
-| Sample Rate | 48 kHz |
-| Tracks | All original audio tracks are preserved |
+| Frecuencia de muestreo | 48 kHz |
+| Pistas | Se conservan todas las pistas de audio originales |
 
-### Preserved Elements
+### Elementos preservados
 
-| Element | Behavior |
-|---------|----------|
-| Subtitles | All tracks kept (ASS, SRT, PGS, etc.) |
-| Chapters | Chapter markers preserved |
-| Fonts / Attachments | Custom subtitle fonts carried over |
-| Metadata | Title, language tags, and other metadata retained |
-
----
-
-## Troubleshooting
-
-### "FFmpeg not found"
-
-Place `ffmpeg.exe` and `ffprobe.exe` in the same directory as `app_mkv.exe`, or add them to your system `PATH`.
-
-Download FFmpeg: [gyan.dev/ffmpeg/builds](https://www.gyan.dev/ffmpeg/builds/)
-
-### Conversion is very slow
-
-If you have an NVIDIA GPU, use `--gpu=on` to enable hardware-accelerated encoding. This can be 5–10× faster than CPU encoding.
-
-### Output file has no subtitles
-
-This is usually because the subtitle format was not recognized. Open an issue with the source file's media info (`ffprobe` output) so it can be investigated.
-
-### "Analysis failed" for a file
-
-Check the detailed log in the `logs/` folder. Common causes:
-- Corrupted MKV container
-- Unusual codec or stream configuration
-- File locked by another process
-
-### GPU not detected
-
-- Ensure you have an **NVIDIA GPU** with updated drivers
-- NVENC requires a GTX 600 series or newer
-- Try running with `--gpu=on` to force GPU mode and see the error
+| Elemento | Comportamiento |
+|----------|----------------|
+| Subtítulos | Se mantienen todas las pistas (ASS, SRT, PGS, etc.) |
+| Capítulos | Los marcadores de capítulos se preservan |
+| Fuentes / Archivos adjuntos | Las fuentes personalizadas de subtítulos se conservan |
+| Metadatos | Título, etiquetas de idioma y otros metadatos se retienen |
 
 ---
 
-## Project Structure
+## Solución de problemas
+
+### "FFmpeg no encontrado"
+
+Coloca `ffmpeg.exe` y `ffprobe.exe` en el mismo directorio que `app_mkv.exe`, o agrégales al `PATH` del sistema.
+
+Descargar FFmpeg: [gyan.dev/ffmpeg/builds](https://www.gyan.dev/ffmpeg/builds/)
+
+### La conversión es muy lenta
+
+Si tienes una GPU NVIDIA, usa `--gpu=on` para habilitar la codificación acelerada por hardware. Esto puede ser de 5 a 10 veces más rápido que la codificación por CPU.
+
+### El archivo de salida no tiene subtítulos
+
+Esto suele ocurrir porque el formato de subtítulos no fue reconocido. Abre un issue con la información multimedia del archivo fuente (salida de `ffprobe`) para que pueda investigarse.
+
+### "Análisis fallido" para un archivo
+
+Revisa el registro detallado en la carpeta `logs/`. Causas comunes:
+- Contenedor MKV dañado
+- Configuración de códec o flujo inusual
+- Archivo bloqueado por otro proceso
+
+### GPU no detectada
+
+- Asegúrate de tener una **GPU NVIDIA** con controladores actualizados
+- NVENC requiere una GTX serie 600 o más reciente
+- Intenta ejecutar con `--gpu=on` para forzar el modo GPU y ver el error
+
+---
+
+## Estructura del proyecto
 
 ```
 AppMkv/
-├── app_mkv.py            # CLI entry point
+├── app_mkv.py            # Punto de entrada de la CLI
 ├── src/
-│   ├── analyzer.py       # FFprobe-based file analysis
-│   ├── converter.py      # Video & audio conversion logic
-│   ├── scanner.py        # Recursive MKV file discovery
-│   ├── merger.py         # Final MKV muxing
-│   ├── gpu_detect.py     # NVIDIA GPU detection
-│   └── utils.py          # Logging & FFmpeg validation
-├── logs/                 # Conversion logs (gitignored)
-├── exe/                  # Build output (gitignored)
-├── requirements.txt      # Build dependencies
+│   ├── analyzer.py       # Análisis de archivos basado en FFprobe
+│   ├── converter.py      # Lógica de conversión de video y audio
+│   ├── scanner.py        # Descubrimiento recursivo de archivos MKV
+│   ├── merger.py         # Muxing final del MKV
+│   ├── gpu_detect.py     # Detección de GPU NVIDIA
+│   └── utils.py          # Registros y validación de FFmpeg
+├── logs/                 # Registros de conversión (ignorado por git)
+├── exe/                  # Salida de compilación (ignorado por git)
+├── requirements.txt      # Dependencias de compilación
 └── README.md
 ```
 
 ---
 
-## Contributing
+## Contribuciones
 
-Contributions are welcome! Here's how to get started:
+¡Las contribuciones son bienvenidas! Así puedes comenzar:
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Make your changes and test with real MKV files
-4. Run with `--dry-run` and `--verbose` to verify behavior
-5. Submit a pull request
+1. Haz un fork del repositorio
+2. Crea una rama de funcionalidad: `git checkout -b feature/mi-funcionalidad`
+3. Realiza tus cambios y prueba con archivos MKV reales
+4. Ejecuta con `--dry-run` y `--verbose` para verificar el comportamiento
+5. Envía un pull request
 
-Please open an issue first for major changes to discuss the approach.
+Por favor, abre un issue primero para cambios importantes y poder discutir el enfoque.
 
 ---
 
-## License
+## Licencia
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+Este proyecto está bajo la **Licencia MIT** — consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
 <p align="center">
-  <sub>Built with 🍵 by <a href="https://github.com/ChitoLabs">ChitoLabs</a></sub>
+  <sub>Hecho con 🍵 por <a href="https://github.com/ChitoLabs">ChitoLabs</a></sub>
 </p>
