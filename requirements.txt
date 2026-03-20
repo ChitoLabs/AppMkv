@@ -1,0 +1,4 @@
+# AppMkv - MKV Blu-ray Compatibility Converter
+
+## Dependencies
+pyinstaller>=6.0
